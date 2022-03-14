@@ -23,6 +23,10 @@ describe('my-organizations', ()=>{
         cy.get('.vs-c-modal--features-button > .vs-c-btn').click();
     })
 
+    it('check ogranizations', ()=>{
+        
+    })
+
     it('add new board', ()=>{
         cy.get('.vs-c-organization-boards__item--add-new').click();
         cy.get('.vs-input-border > input').type('novi Board');
