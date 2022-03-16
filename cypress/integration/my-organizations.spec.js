@@ -1,42 +1,44 @@
 /// <reference types='cypress'/>
+import { newBoard } from "../pageObject/board";
 import { loginPage } from "../pageObject/login"
+import { myOrganizations } from "../pageObject/my-organizations";
 
 describe('my-organizations', ()=>{
 
     before('backend login', ()=>{
-        //cy.loginViaBackend();
+        //cy.loginViaBackend(); ne radi (o.O)
         cy.visit('/login')
         loginPage.login('markopzs1@test.com', 'password123');
     })
 
-    it('visit page', ()=>{
+    xit('visit page', ()=>{
         //cy.visit('/my-organizations')
         cy.get('h2').should('be.visible');
         
     })
 
-    it('create organization', ()=>{
-        cy.get('.vs-c-my-organization--add-new').click();
-        cy.get('input').type('Nova Organizacija');
-        cy.get('[name="next_btn"]').click();
-        cy.get('[name="next_btn"]').click();
-        cy.get('.vs-c-modal--features-button > .vs-c-btn').click();
+    it('delete ogranization', ()=>{
+        cy.get(".vs-c-my-organization__content").eq(0).click()
+        myOrganizations.modalConfirmBtn.click();
+        cy.get('#tools')
     })
 
-    it('check ogranizations', ()=>{
-        
+    xit('create organization', ()=>{
+        myOrganizations.addNewOrganization.click();
+        myOrganizations.nameOrganization('nova');
+        myOrganizations.nextBtn.click();
+        myOrganizations.nextBtn.click();
+        myOrganizations.modalConfirmBtn.click();
     })
 
-    it('add new board', ()=>{
-        cy.get('.vs-c-organization-boards__item--add-new').click();
-        cy.get('.vs-input-border > input').type('novi Board');
-        cy.get('[name="next_btn"]').click();
-        cy.get(':nth-child(1) > .vs-c-radio > .vs-c-radio-check').click();
-        cy.get('[name="next_btn"]').click();
-        cy.get('[name="next_btn"]').click();
-        cy.get('[name="next_btn"]').click();
-        cy.get('[name="next_btn"]').click();
-
+    xit('add new board', ()=>{
+        newBoard.addNewBoard.click();
+        newBoard.nameBoard('novi Board');
+        newBoard.nextBtn.click();
+        newBoard.scrumRadioBtn.click({force: true});
+        newBoard.nextBtn.click();
+        newBoard.nextBtn.click();
+        newBoard.finishBtn.click();
     })
 
     
