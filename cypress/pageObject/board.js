@@ -29,12 +29,17 @@ class Board {
         return cy.get('[name="name"]');
     }
 
+    get organization(){
+        return cy.get('.organization-list-item').eq(0);
+    }
+
     createBoard(name){
+        this.organization.click();
+        this.modalConfirmBtn.click();
         this.addNewBoard.click();
         this.inputName.type(name);
         this.nextBtn.click();
         this.scrumRadioBtn.click({force: true});
-        this.nextBtn.click();
         this.nextBtn.click();
         this.nextBtn.click();
         this.finishBtn.click();

@@ -10,11 +10,9 @@ describe('board', ()=>{
         loginPage.login('markopzs1@test.com', 'password123');
     })
 
-    it('chose organization', ()=>{
+    it('check organization', ()=>{
         cy.url().should('contain', '/my-organizations');
-        cy.get('h2').should('be.visible');
-        cy.get('.organization-list-item').eq(0).click();
-        myOrganizations.modalConfirmBtn.click();        
+        cy.get('h2').should('be.visible');       
     })
 
     it('add new board', ()=>{

@@ -3,7 +3,7 @@ import { loginPage } from "../pageObject/login"
 
 describe('login test', ()=>{
 
-    beforeEach('visit baseUrl', ()=>{
+    beforeEach('login', ()=>{
         cy.visit('/')
         cy.url().should('contain', '/login')
     })

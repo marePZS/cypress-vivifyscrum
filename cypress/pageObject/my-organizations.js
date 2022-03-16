@@ -41,8 +41,8 @@ class MyOrganizations {
         return cy.get('[name="save-btn"]');
     }
 
-    get orgId(){
-        return cy.get('organizationId');
+    get organization(){
+        return cy.get('.organization-list-item').eq(0);
     }
 
     createOrganization(name){
@@ -54,7 +54,7 @@ class MyOrganizations {
     }
 
     deleteOrganization(password){
-        
+        this.organization.click();
         this.modalConfirmBtn.click();
         this.configBtn.click();
         this.deleteBtn.click();
