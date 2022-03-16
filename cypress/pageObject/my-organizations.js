@@ -25,11 +25,43 @@ class MyOrganizations {
         return cy.get('input');
     }
 
-    nameOrganization(name){
-        this.inputName.type(name);
+    get configBtn(){
+        return cy.get('li[data-cy="organization-configuration"]');
     }
 
-    
+    get deleteBtn(){
+        return cy.get('.vs-c-btn--warning');
+    }
+
+    get password(){
+        return cy.get(':password');
+    }
+
+    get yesBtn(){
+        return cy.get('[name="save-btn"]');
+    }
+
+    get orgId(){
+        return cy.get('organizationId');
+    }
+
+    createOrganization(name){
+        this.addNewOrganization.click();
+        this.inputName.type(name);
+        this.nextBtn.click();
+        this.nextBtn.click();
+        this.modalConfirmBtn.click();
+    }
+
+    deleteOrganization(password){
+        
+        this.modalConfirmBtn.click();
+        this.configBtn.click();
+        this.deleteBtn.click();
+        this.password.type(password);
+        this.yesBtn.click();
+
+    }
 }
 
 export const myOrganizations = new MyOrganizations();

@@ -5,40 +5,49 @@ import { myOrganizations } from "../pageObject/my-organizations";
 
 describe('my-organizations', ()=>{
 
-    before('backend login', ()=>{
-        //cy.loginViaBackend(); ne radi (o.O)
+    let organizationId;
+    let organizationName;
+
+    before('login', ()=>{
+        
         cy.visit('/login')
         loginPage.login('markopzs1@test.com', 'password123');
     })
 
     xit('visit page', ()=>{
-        //cy.visit('/my-organizations')
+        
         cy.get('h2').should('be.visible');
         
     })
 
-    it('delete ogranization', ()=>{
-        cy.get(".vs-c-my-organization__content").eq(0).click()
-        myOrganizations.modalConfirmBtn.click();
-        cy.get('#tools')
+    it('create organization', ()=>{
+        cy.intercept({
+            method: 'POST',
+            url: 'https://cypress-api.vivifyscrum-stage.com/api/v2/organizations' 
+        }).as('orgIntercept');
+
+        myOrganizations.createOrganization('nova11');
+
+        cy.wait('@orgIntercept').then((intercept)=>{
+            expect(intercept.response.statusCode).eq(201);
+            organizationId = intercept.response.body.id;
+            organizationName = intercept.response.body.name;
+            cy.visit('my-organizations')
+            cy.get('.organization-list-item').eq(-1).should('contain', organizationName)
+            cy.visit(`/organizations/${organizationId}/boards`);
+            cy.get('li[data-cy="organization-boards"]').should('be.visible');
+        })
     })
 
-    xit('create organization', ()=>{
-        myOrganizations.addNewOrganization.click();
-        myOrganizations.nameOrganization('nova');
-        myOrganizations.nextBtn.click();
-        myOrganizations.nextBtn.click();
+    xit('delete ogranization', ()=>{
+        cy.get('.organization-list-item').eq(0).click();
         myOrganizations.modalConfirmBtn.click();
-    })
+        cy.get('li[data-cy="organization-configuration"]').click();
+        cy.get('.vs-c-btn--warning').click();
+        cy.get(':password').type('password123');
+        cy.get('[name="save-btn"]').click();
 
-    xit('add new board', ()=>{
-        newBoard.addNewBoard.click();
-        newBoard.nameBoard('novi Board');
-        newBoard.nextBtn.click();
-        newBoard.scrumRadioBtn.click({force: true});
-        newBoard.nextBtn.click();
-        newBoard.nextBtn.click();
-        newBoard.finishBtn.click();
+        //myOrganizations.deleteOrganization('password123')
     })
 
     

@@ -29,8 +29,16 @@ class Board {
         return cy.get('[name="name"]');
     }
 
-    nameBoard(name){
+    createBoard(name){
+        this.addNewBoard.click();
         this.inputName.type(name);
+        this.nextBtn.click();
+        this.scrumRadioBtn.click({force: true});
+        this.nextBtn.click();
+        this.nextBtn.click();
+        this.nextBtn.click();
+        this.finishBtn.click();
+
     }
 
     
