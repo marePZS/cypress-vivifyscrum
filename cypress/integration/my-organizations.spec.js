@@ -21,7 +21,7 @@ describe('my-organizations', ()=>{
         
     })
 
-    it('create organization', ()=>{
+    xit('create organization', ()=>{
         cy.intercept({
             method: 'POST',
             url: 'https://cypress-api.vivifyscrum-stage.com/api/v2/organizations' 
@@ -42,12 +42,19 @@ describe('my-organizations', ()=>{
         })
     })
 
-    xit('delete ogranization', ()=>{
+    // Cypress._.times(7, ()=>{
+    //     it('delete ogranization', ()=>{
+        
+    //         myOrganizations.deleteOrganization('password123')
+    //     }) 
+    // })
+
+    it('delete ogranization', ()=>{
         
         myOrganizations.deleteOrganization('password123')
     })
 
-    it('logout', ()=>{
+    xit('logout', ()=>{
         logOut.logoutButton();
     })
 
